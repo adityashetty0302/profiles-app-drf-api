@@ -1,0 +1,1 @@
+print('vagrant test successful')
