@@ -28,7 +28,7 @@ Vagrant.configure("2") do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine and only allow access
   # via 127.0.0.1 to disable public access
-  config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 8080, host: 8080, host_ip: "127.0.0.1"
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -70,16 +70,8 @@ Vagrant.configure("2") do |config|
     # Set Ubuntu Language
     sudo locale-gen en_GB.UTF-8
     # Install Python, SQLite and pip
-    sudo apt-get install -y python3-dev sqlite python-pip
-    # Upgrade pip to the latest version.
-    sudo pip install --upgrade pip
-    # Install and configure python virtualenvwrapper.
-    sudo pip install virtualenvwrapper
-    if ! grep -q VIRTUALENV_ALREADY_ADDED /home/vagrant/.bashrc; then
-        echo "# VIRTUALENV_ALREADY_ADDED" >> /home/vagrant/.bashrc
-        echo "WORKON_HOME=~/.virtualenvs" >> /home/vagrant/.bashrc
-        echo "PROJECT_HOME=/vagrant" >> /home/vagrant/.bashrc
-        echo "source /usr/local/bin/virtualenvwrapper.sh" >> /home/vagrant/.bashrc
-    fi
+    sudo apt-get install -y python3-dev sqlite python3-pip
+    # Install and configure python pipenv.
+    sudo pip3 install pipenv
   SHELL
 end
