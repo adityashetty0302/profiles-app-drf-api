@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from . import serializers, models, permissions
-from rest_framework import status, viewsets
+from rest_framework import status, viewsets, filters
 
 
 class HelloApiView(APIView):
@@ -107,3 +107,5 @@ class UserProfileViewset(viewsets.ModelViewSet):
     serializer_class = serializers.UserProfileSerializer
     queryset = models.UserProfile.objects.all()
     permission_classes = (permissions.IsOwnerOrReadOnly,)
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name', 'email',)
