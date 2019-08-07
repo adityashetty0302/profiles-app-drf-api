@@ -38,15 +38,15 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     related data, such as 'email address' and 'name'.
     """
 
-    email = models.EmailField(max_length=255, unique=True)
-    name = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
     objects = UserProfileManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name']
+    USERNAME_FIELD = 'name'
+    REQUIRED_FIELDS = ['email']
 
     def get_full_name(self):
         """Django uses this when it needs to get the user's full name."""

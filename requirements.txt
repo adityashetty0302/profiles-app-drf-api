@@ -1,3 +1,4 @@
 Django==1.11
 djangorestframework==3.6.2
 pytz==2019.1
+djangorestframework-jwt==1.11.0
