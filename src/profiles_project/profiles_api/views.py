@@ -109,3 +109,16 @@ class UserProfileViewset(viewsets.ModelViewSet):
     permission_classes = (permissions.IsOwnerOrReadOnly,)
     filter_backends = (filters.SearchFilter,)
     search_fields = ('name', 'email',)
+
+
+class UserProfileFeedViewSet(viewsets.ModelViewSet):
+    """Handles creating, reading and updating profile feed items."""
+
+    serializer_class = serializers.ProfileFeedItemSerializer
+    queryset = models.ProfileFeedItem.objects.all()
+    permission_classes = (permissions.IsOwnerOrReadOnly,)
+
+    def perform_create(self, serializer):
+        """Sets the user profile to the logged in user."""
+
+        serializer.save(user_profile=self.request.user)
