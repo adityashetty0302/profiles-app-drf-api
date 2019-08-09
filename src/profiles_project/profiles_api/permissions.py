@@ -1,4 +1,5 @@
 from rest_framework import permissions
+from .models import ProfileFeedItem
 
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
@@ -10,5 +11,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
 
-        print(view)
-        return obj.id == request.user.id
+        if isinstance(obj, ProfileFeedItem):
+            return obj.user_profile.id == request.user.id
+        else:
+            return obj.id == request.user.id
