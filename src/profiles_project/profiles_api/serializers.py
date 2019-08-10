@@ -30,7 +30,12 @@ class UserProfileSerializer(serializers.ModelSerializer):
 class ProfileFeedItemSerializer(serializers.ModelSerializer):
     """A serializer for profile feed items."""
 
+    user_profile = serializers.SerializerMethodField()
+
     class Meta:
         model = models.ProfileFeedItem
-        fields = ('user_profile', 'status_text')
+        fields = ('id', 'user_profile', 'status_text')
         extra_kwargs = {'user_profile': {'read_only': True}}
+
+    def get_user_profile(self, obj):
+        return obj.get_user_profile_name()

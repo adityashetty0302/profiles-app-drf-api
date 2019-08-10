@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from . import serializers, models, permissions
 from rest_framework import status, viewsets, filters
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 
 class HelloApiView(APIView):
@@ -106,7 +107,7 @@ class UserProfileViewset(viewsets.ModelViewSet):
 
     serializer_class = serializers.UserProfileSerializer
     queryset = models.UserProfile.objects.all()
-    permission_classes = (permissions.IsOwnerOrReadOnly,)
+    permission_classes = (permissions.IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly)
     filter_backends = (filters.SearchFilter,)
     search_fields = ('name', 'email',)
 
@@ -116,7 +117,7 @@ class UserProfileFeedViewSet(viewsets.ModelViewSet):
 
     serializer_class = serializers.ProfileFeedItemSerializer
     queryset = models.ProfileFeedItem.objects.all()
-    permission_classes = (permissions.IsOwnerOrReadOnly,)
+    permission_classes = (permissions.IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly)
 
     def perform_create(self, serializer):
         """Sets the user profile to the logged in user."""

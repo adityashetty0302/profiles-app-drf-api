@@ -76,3 +76,6 @@ class ProfileFeedItem(models.Model):
         """Return the model as a string."""
 
         return self.status_text
+
+    def get_user_profile_name(self):
+        return self.user_profile.name
